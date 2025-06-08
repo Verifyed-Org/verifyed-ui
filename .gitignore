@@ -1,0 +1,26 @@
+**/.git
+# Ignore all node_modules directories
+**/node_modules
+# Ignore all log files
+**/*.log
+# Ignore all build directories
+**/build
+# Ignore all dist directories
+**/dist
+# Ignore all coverage directories
+**/coverage
+# Ignore all temporary files
+**/*.tmp
+# Ignore all environment files
+**/.env
+# Ignore all cache directories
+**/cache
+# Ignore all configuration files
+**/config.json
+# Ignore all temporary directories
+**/temp
+# Ignore all compiled files
+**/*.o
+# Ignore all compiled binaries
+# Ignore all .DS_Store files
+**.DS_Store
