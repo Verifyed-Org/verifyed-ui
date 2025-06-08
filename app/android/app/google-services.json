@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356309809239",
+    "project_id": "verifyed-ui",
+    "storage_bucket": "verifyed-ui.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356309809239:android:93d672c08db5abd8960b12",
+        "android_client_info": {
+          "package_name": "com.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlUoGGuWL9AhYiFMfnNmXU-AckehYtaOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
