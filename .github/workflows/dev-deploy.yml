@@ -4,28 +4,30 @@ on:
   push:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: ./app
+
 jobs:
   deploy:
     runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
-        working-directory: ./app
-
       - uses: actions/setup-node@v3
         with:
           node-version: 23.10.0
-        working-directory: ./app
-
       - name: Set up npm
-      - run: ls
-      - run: npm config set legacy-peer-deps false
-      - run: npm cache clean --force
+        run: ls
+        run: npm config set legacy-peer-deps false
+        run: npm cache clean --force
 
-      - run: npm install
-      - run: npm ci
+        run: npm install
+        run: npm ci
+
       # Android build
-      - run: cd android && ./gradlew assembleRelease
+      - name: Build Android SDK
+        run: cd android && ./gradlew assembleRelease
 
       - name: Upload to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
