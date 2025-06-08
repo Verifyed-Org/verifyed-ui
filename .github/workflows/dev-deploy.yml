@@ -9,11 +9,13 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - name: Checkout code
+        working-directory: ./app
+
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 23.10.0
-      - working-directory: ./app
 
       - run: npm config set legacy-peer-deps false
       - run: npm cache clean --force
