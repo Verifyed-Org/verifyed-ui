@@ -1,0 +1,47 @@
+name: Deploy to Firebase + TestFlight
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: npm ci
+
+      # Android build
+      - run: cd app
+      - run: cd android && ./gradlew assembleRelease
+
+      - name: Upload to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: "dev-testers"
+          file: app/android/app/build/outputs/apk/release/app-release.apk
+
+      # iOS build
+      - run: |
+          cd app
+          cd ios
+          xcodebuild -workspace YourApp.xcworkspace \
+            -scheme YourApp \
+            -sdk iphoneos \
+            -configuration AppStoreDistribution \
+            -archivePath $PWD/build/YourApp.xcarchive archive
+
+      - name: Upload to TestFlight
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: app/ios/build/YourApp.xcarchive
+          issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPLE_KEY_ID }}
+          api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}

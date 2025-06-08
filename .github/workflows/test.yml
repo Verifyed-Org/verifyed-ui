@@ -1,0 +1,26 @@
+name: PR Checks - React Native
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: cd app
+      - run: npm ci
+      - run: npm run test -- --coverage
+
+      - name: Enforce Coverage ≥ 80%
+        run: |
+          COVERAGE=$(npx jest --coverage --coverageReporters=text-summary | grep 'Statements' | awk '{print $3}' | sed 's/%//')
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "Code coverage too low: $COVERAGE%"
+            exit 1
+          fi
