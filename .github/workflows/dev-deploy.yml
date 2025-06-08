@@ -15,9 +15,11 @@ jobs:
           node-version: 23.10.0
 
       - run: cd app
+      - run: ls
       - run: npm config set legacy-peer-deps false
       - run: npm cache clean --force
 
+      - run: ls
       - run: npm install
       - run: npm ci
       # Android build
