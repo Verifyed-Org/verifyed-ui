@@ -18,12 +18,13 @@ jobs:
         with:
           node-version: 23.10.0
       - name: Set up npm
-        run: ls
-        run: npm config set legacy-peer-deps false
-        run: npm cache clean --force
+        run: |
+          ls
+          npm config set legacy-peer-deps false
+          npm cache clean --force
 
-        run: npm install
-        run: npm ci
+          npm install
+          npm ci
 
       # Android build
       - name: Build Android SDK
