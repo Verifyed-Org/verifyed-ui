@@ -40,7 +40,7 @@ jobs:
 
       # # iOS build
       - name: Build iOS App
-      - run: |
+        run: |
           cd ios
           xcodebuild -workspace app.xcworkspace \
             -scheme app \
@@ -51,7 +51,7 @@ jobs:
       - name: Upload to TestFlight
         uses: apple-actions/upload-testflight-build@v1
         with:
-          app-path: app/ios/build/app.xcarchive
+          app-path: ios/build/app.xcarchive
           issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
