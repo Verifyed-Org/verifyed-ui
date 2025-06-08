@@ -14,6 +14,7 @@ jobs:
         with:
           node-version: 23.10.0
 
+      - run: ls
       - run: cd app
       - run: ls
       - run: npm config set legacy-peer-deps false
