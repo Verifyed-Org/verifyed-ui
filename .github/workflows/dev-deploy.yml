@@ -14,10 +14,10 @@ jobs:
         with:
           node-version: 18
 
+      - run: cd app
       - run: npm ci
 
       # Android build
-      - run: cd app
       - run: cd android && ./gradlew assembleRelease
 
       - name: Upload to Firebase
