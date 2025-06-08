@@ -1,3 +1,8 @@
+plugins {
+    id("com.android.application")
+    id("com.google.gms.google-services")
+}
+
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -120,9 +125,3 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-appdistribution-api:16.0.0-beta15")    
 }
-
-
-plugins {
-    id("com.android.application")
-    id("com.google.gms.google-services")
-} 
