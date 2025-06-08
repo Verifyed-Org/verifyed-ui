@@ -27,31 +27,31 @@ jobs:
           npm ci
 
       # Android build
-      - name: Build Android SDK
-        run: cd android && ./gradlew assembleRelease
+      # - name: Build Android SDK
+      #   run: cd android && ./gradlew assembleRelease
 
-      - name: Upload to Firebase
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: "dev-testers"
-          file: app/android/app/build/outputs/apk/release/app-release.apk
+      # - name: Upload to Firebase
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #   with:
+      #     appId: ${{ secrets.FIREBASE_APP_ID }}
+      #     token: ${{ secrets.FIREBASE_TOKEN }}
+      #     groups: "dev-testers"
+      #     file: app/android/app/build/outputs/apk/release/app-release.apk
 
-      # iOS build
+      # # iOS build
+      - name: Build iOS App
       - run: |
-          cd app
           cd ios
-          xcodebuild -workspace YourApp.xcworkspace \
-            -scheme YourApp \
+          xcodebuild -workspace app.xcworkspace \
+            -scheme app \
             -sdk iphoneos \
             -configuration AppStoreDistribution \
-            -archivePath $PWD/build/YourApp.xcarchive archive
+            -archivePath $PWD/build/app.xcarchive archive
 
       - name: Upload to TestFlight
         uses: apple-actions/upload-testflight-build@v1
         with:
-          app-path: app/ios/build/YourApp.xcarchive
+          app-path: app/ios/build/app.xcarchive
           issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
