@@ -18,11 +18,7 @@ jobs:
       - run: npm config set legacy-peer-deps false
       - run: npm cache clean --force
 
-      - run: |
-          if [ ! -f package-lock.json ]; then
-            echo "package-lock.json not found. Running 'npm install' to generate it."
-            npm install
-          fi
+      - run: npm install
       - run: npm ci
       # Android build
       - run: cd android && ./gradlew assembleRelease
