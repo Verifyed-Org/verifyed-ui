@@ -49,7 +49,7 @@ jobs:
 
       - name: Archive iOS App
         run: |
-          xcodebuild -workspace ./app.xcworkspace \
+          xcodebuild -workspace app.xcworkspace \
             -scheme app \
             -sdk iphoneos \
             -configuration Release \
