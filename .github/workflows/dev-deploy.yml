@@ -42,16 +42,16 @@ jobs:
       - name: Navigating to iOS directory
         run: cd ios
       - name: Archive iOS App
-        run: |
-          xcodebuild -workspace app.xcworkspace \
-            scheme app \
-            sdk iphoneos \
-            configuration Release \
-            archivePath "$PWD/build/app.xcarchive" \
-            allowProvisioningUpdates \
-            allowProvisioningDeviceRegistration \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
+        run: >
+          xcodebuild -workspace app.xcworkspace
+            scheme app
+            sdk iphoneos
+            configuration Release
+            archivePath "$PWD/build/app.xcarchive"
+            allowProvisioningUpdates
+            allowProvisioningDeviceRegistration
+            CODE_SIGN_STYLE=Automatic
+            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
             archive
 
       - name: Upload to TestFlight
