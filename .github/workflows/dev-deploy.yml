@@ -1,6 +1,20 @@
 name: Deploy to Firebase + TestFlight
 
 on:
+  workflow_call:
+    secrets:
+      FIREBASE_APP_ID:
+        required: true
+      FIREBASE_TOKEN:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+      APPLE_ISSUER_ID:
+        required: true
+      APPLE_KEY_ID:
+        required: true
+      APPLE_PRIVATE_KEY:
+        required: true
   push:
     branches: [main]
 
