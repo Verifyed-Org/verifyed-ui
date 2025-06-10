@@ -39,10 +39,10 @@ jobs:
       #     file: app/android/app/build/outputs/apk/release/app-release.apk
 
       # # iOS build
+      - name: Navigating to iOS directory
+        run: cd ios
       - name: Archive iOS App
         run: |
-          cd ios
-          ls
           xcodebuild -workspace app.xcworkspace \
             scheme app \
             sdk iphoneos \
