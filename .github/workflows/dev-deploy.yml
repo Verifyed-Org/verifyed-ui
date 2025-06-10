@@ -41,6 +41,12 @@ jobs:
       # # iOS build
       - name: Navigating to iOS directory
         run: cd ios && ls
+
+      - name: Setup Cocoapods
+        uses: maxim-lobanov/setup-cocoapods@v1.4.0
+        with:
+          cocoapods-version: 1.9.0
+
       - name: Archive iOS App
         run: |
           xcodebuild -workspace app.xcworkspace \
