@@ -46,6 +46,14 @@ jobs:
       #   uses: maxim-lobanov/setup-cocoapods@v1.4.0
       #   with:
       #     cocoapods-version: 1.9.0
+      - name: Check APPLE_TEAM_ID presence
+        run: |
+          if [ -z "${{ secrets.APPLE_TEAM_ID }}" ]; then
+            echo "APPLE_TEAM_ID is not set"
+            exit 1
+          else
+            echo "APPLE_TEAM_ID is set"
+          fi
 
       - name: Archive iOS App
         run: |
