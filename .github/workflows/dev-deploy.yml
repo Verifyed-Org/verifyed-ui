@@ -39,18 +39,6 @@ jobs:
       #     groups: "dev-testers"
       #     file: app/android/app/build/outputs/apk/release/app-release.apk
 
-      - name: Testing APPLE Team ID presence
-        run: |
-          echo "APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}"
-          echo "APPLE_TEAM_ID: ${{ secrets.APPLE_ISSUER_ID }}"
-          echo "APPLE_TEAM_ID: ${{ secrets }}"
-          if [ -z "${{ secrets.APPLE_TEAM_ID }}" ]; then
-            echo "APPLE_TEAM_ID is not set"
-            exit 1
-          else
-            echo "APPLE_TEAM_ID is set"
-          fi
-
       # # iOS build
       - name: Install iOS Pods
         working-directory: ./app/ios
@@ -78,7 +66,7 @@ jobs:
       - name: Upload to TestFlight
         uses: apple-actions/upload-testflight-build@v1
         with:
-          app-path: ios/build/app.xcarchive
+          app-path: ./app/ios/build/app.xcarchive
           issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
