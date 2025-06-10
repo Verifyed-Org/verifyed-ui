@@ -49,11 +49,11 @@ jobs:
 
       - name: Archive iOS App
         run: |
-          xcodebuild -workspace app.xcworkspace \
+          xcodebuild -workspace ios/app.xcworkspace \
             -scheme app \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath "$PWD/build/app.xcarchive" \
+            -archivePath "$PWD/ios/build/app.xcarchive" \
             -allowProvisioningUpdates \
             -allowProvisioningDeviceRegistration \
             -CODE_SIGN_STYLE=Automatic \
