@@ -40,7 +40,7 @@ jobs:
 
       # # iOS build
       - name: Navigating to iOS directory
-        run: cd ios
+        run: cd ios && ls
       - name: Archive iOS App
         run: |
           xcodebuild -workspace app.xcworkspace \
