@@ -25,7 +25,7 @@ jobs:
       - name: Setup Cocoapods
         uses: maxim-lobanov/setup-cocoapods@v1.4.0
         with:
-          cocoapods-version: 1.9.0
+          version: 1.9.0
 
       # Android build
       # - name: Build Android SDK
