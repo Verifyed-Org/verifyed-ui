@@ -1,20 +1,6 @@
 name: Deploy to Firebase + TestFlight
 
 on:
-  workflow_call:
-    secrets:
-      FIREBASE_APP_ID:
-        required: true
-      FIREBASE_TOKEN:
-        required: true
-      APPLE_TEAM_ID:
-        required: true
-      APPLE_ISSUER_ID:
-        required: true
-      APPLE_KEY_ID:
-        required: true
-      APPLE_PRIVATE_KEY:
-        required: true
   push:
     branches: [main]
 
@@ -33,12 +19,13 @@ jobs:
           node-version: 23.10.0
       - name: Set up npm
         run: |
-          ls
           npm config set legacy-peer-deps false
-          npm cache clean --force
-
-          npm install
           npm ci
+
+      - name: Setup Cocoapods
+        uses: maxim-lobanov/setup-cocoapods@v1.4.0
+        with:
+          cocoapods-version: 1.9.0
 
       # Android build
       # - name: Build Android SDK
@@ -65,8 +52,9 @@ jobs:
           fi
 
       # # iOS build
-      - name: Navigating to iOS directory
-        run: cd ios && pod install
+      - name: Install iOS Pods
+        working-directory: ./app/ios
+        run: pod install
 
       # - name: Setup Cocoapods
       #   uses: maxim-lobanov/setup-cocoapods@v1.4.0
@@ -74,6 +62,7 @@ jobs:
       #     cocoapods-version: 1.9.0
 
       - name: Archive iOS App
+        working-directory: ./app/ios
         run: |
           xcodebuild -workspace ios/app.xcworkspace \
             -scheme app \
