@@ -41,16 +41,18 @@ jobs:
       # # iOS build
       - name: Archive iOS App
         run: |
+          cd ios
+          pod install
           xcodebuild -workspace app.xcworkspace \
-          scheme app \
-          sdk iphoneos \
-          configuration Release \
-          archivePath "$PWD/build/app.xcarchive" \
-          allowProvisioningUpdates \
-          allowProvisioningDeviceRegistration \
-          CODE_SIGN_STYLE=Automatic \
-          DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
-          archive
+            scheme app \
+            sdk iphoneos \
+            configuration Release \
+            archivePath "$PWD/build/app.xcarchive" \
+            allowProvisioningUpdates \
+            allowProvisioningDeviceRegistration \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
+            archive
 
       - name: Upload to TestFlight
         uses: apple-actions/upload-testflight-build@v1
