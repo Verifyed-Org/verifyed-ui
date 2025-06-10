@@ -42,6 +42,7 @@ jobs:
       - name: Archive iOS App
         run: |
           cd ios
+          ls
           xcodebuild -workspace app.xcworkspace \
             scheme app \
             sdk iphoneos \
