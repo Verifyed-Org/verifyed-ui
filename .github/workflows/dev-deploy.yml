@@ -59,7 +59,7 @@ jobs:
             -archivePath "$PWD/ios/build/app.xcarchive" \
             -allowProvisioningUpdates \
             -allowProvisioningDeviceRegistration \
-            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
             archive
 
