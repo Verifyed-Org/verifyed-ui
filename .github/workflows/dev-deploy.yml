@@ -39,6 +39,11 @@ jobs:
       #     groups: "dev-testers"
       #     file: app/android/app/build/outputs/apk/release/app-release.apk
 
+      - name: Install provisioning profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/verifyed-prov-prof.mobileprovision
+
       # # iOS build
       - name: Install iOS Pods
         working-directory: ./app/ios
@@ -57,9 +62,7 @@ jobs:
             -sdk iphoneos \
             -configuration Release \
             -archivePath "$PWD/ios/build/app.xcarchive" \
-            -allowProvisioningUpdates \
-            -allowProvisioningDeviceRegistration \
-            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER=${{ secrets.PROVISIONING_PROFILE_SPECIFIER }} \
             DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
             archive
 
