@@ -1,4 +1,5 @@
 default_platform(:ios)
+git_url(ENV['GIT_URL'])
 
 platform :ios do
   desc "Build and upload to TestFlight"
