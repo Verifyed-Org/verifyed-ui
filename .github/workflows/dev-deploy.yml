@@ -44,6 +44,9 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/verifyed-prov-prof.mobileprovision
 
+      - name: Install Fastlane
+        run: sudo gem install fastlane -NV
+
       # # iOS build
       - name: Install iOS Pods
         working-directory: ./app/ios
@@ -54,22 +57,31 @@ jobs:
       #   with:
       #     cocoapods-version: 1.9.0
 
-      - name: Archive iOS App
-        working-directory: ./app/ios
-        run: |
-          xcodebuild -workspace app.xcworkspace \
-            -scheme app \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath "$PWD/ios/build/app.xcarchive" \
-            PROVISIONING_PROFILE_SPECIFIER=${{ secrets.PROVISIONING_PROFILE_SPECIFIER }} \
-            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
-            archive
+      # - name: Archive iOS App
+      #   working-directory: ./app/ios
+      #   run: |
+      #     xcodebuild -workspace app.xcworkspace \
+      #       -scheme app \
+      #       -sdk iphoneos \
+      #       -configuration Release \
+      #       -archivePath "$PWD/ios/build/app.xcarchive" \
+      #       PROVISIONING_PROFILE_SPECIFIER=${{ secrets.PROVISIONING_PROFILE_SPECIFIER }} \
+      #       DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
+      #       archive
 
-      - name: Upload to TestFlight
-        uses: apple-actions/upload-testflight-build@v1
-        with:
-          app-path: ./app/ios/build/app.xcarchive
-          issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPLE_KEY_ID }}
-          api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
+      # - name: Upload to TestFlight
+      #   uses: apple-actions/upload-testflight-build@v1
+      #   with:
+      #     app-path: ./app/ios/build/app.xcarchive
+      #     issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
+      #     api-key-id: ${{ secrets.APPLE_KEY_ID }}
+      #     api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
+
+      - name: Run Fastlane for TestFlight
+        working-directory: ./app/ios
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
+        run: fastlane deploy_to_testflight
