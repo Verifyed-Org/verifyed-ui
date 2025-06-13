@@ -39,10 +39,10 @@ jobs:
       #     groups: "dev-testers"
       #     file: app/android/app/build/outputs/apk/release/app-release.apk
 
-      - name: Install provisioning profile
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/verifyed-prov-prof.mobileprovision
+      # - name: Install provisioning profile
+      #   run: |
+      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+      #     echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/verifyed-prov-prof.mobileprovision
 
       - name: Install Fastlane
         run: sudo gem install fastlane -NV
@@ -84,5 +84,6 @@ jobs:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
           APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GIT_URL: ${{ secrets.GIT_URL }}
         run: fastlane deploy_to_testflight

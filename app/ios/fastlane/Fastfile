@@ -1,13 +1,12 @@
 default_platform(:ios)
-git_url(ENV['GIT_URL'])
 
 platform :ios do
   desc "Build and upload to TestFlight"
   lane :deploy_to_testflight do
-    match(type: "development", app_identifier: "com.verifyed-org.verifyed", readonly: true)
+    match(type: "appstore")
     build_app(
       scheme: "app",
-      export_method: "app-store"
+      export_method: "app-store",
     )
     upload_to_testflight
   end
