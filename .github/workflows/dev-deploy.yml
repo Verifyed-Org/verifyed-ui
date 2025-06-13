@@ -47,6 +47,11 @@ jobs:
       - name: Install Fastlane
         run: sudo gem install fastlane -NV
 
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }} # Replace with your custom secret if needed
+
       # # iOS build
       - name: Install iOS Pods
         working-directory: ./app/ios
