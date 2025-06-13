@@ -92,4 +92,5 @@ jobs:
           APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GIT_URL: ${{ secrets.GIT_URL }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         run: fastlane deploy_to_testflight
