@@ -93,5 +93,4 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GIT_URL: ${{ secrets.GIT_URL }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         run: fastlane deploy_to_testflight
