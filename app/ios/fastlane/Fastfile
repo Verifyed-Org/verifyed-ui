@@ -21,7 +21,8 @@ platform :ios do
         provisioningProfiles: {
           "com.verifyed-org.verifyed" => "match AppStore com.verifyed-org.verifyed"
         }
-      }
+      },
+      xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight
   end
