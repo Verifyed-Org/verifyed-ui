@@ -24,6 +24,6 @@ platform :ios do
       },
       xcargs: "-allowProvisioningUpdates"
     )
-    upload_to_testflight
+    upload_to_testflight(api_key: api_key)
   end
 end
