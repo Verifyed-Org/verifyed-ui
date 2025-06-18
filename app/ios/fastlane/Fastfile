@@ -11,13 +11,13 @@ platform :ios do
       in_house: false
     )
     match(
-      type: "appstore",
-      api_key: api_key
-      allowProvisioningUpdates: true,
-    )
+        type: "appstore",
+        api_key: api_key
+      )
     build_app(
       scheme: "app",
-      allowProvisioningUpdates: true,
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates"
       export_options: {
         provisioningProfiles: {
           "com.verifyed-org.verifyed" => "match AppStore com.verifyed-org.verifyed"
