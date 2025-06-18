@@ -17,11 +17,6 @@ platform :ios do
     build_app(
       scheme: "app",
       export_method: "app-store",
-      export_options: {
-        provisioningProfiles: {
-          "com.verifyed-org.verifyed" => "match AppStore com.verifyed-org.verifyed"
-        }
-      },
       xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight(api_key: api_key)
