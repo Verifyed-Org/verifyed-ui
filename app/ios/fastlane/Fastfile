@@ -1,29 +1,34 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build and upload to TestFlight"
-  lane :deploy_to_testflight do
-    api_key = app_store_connect_api_key(
-      key_id: ENV["APPLE_KEY_ID"],
-      issuer_id: ENV["APPLE_ISSUER_ID"],
-      key_content: ENV["APPLE_PRIVATE_KEY"],
-      is_key_content_base64: false,
-      in_house: false
-    )
-    match(
-        type: "appstore",
-        api_key: api_key
-      )
-    build_app(
-      scheme: "app",
-      export_method: "app-store",
-      xcargs: "-allowProvisioningUpdates",
-      export_options: {
-        provisioningProfiles: {
-          "com.verifyed-org.verifyed" => "match AppStore com.verifyed-org.verifyed"
-        }
-      }
-    )
-    upload_to_testflight(api_key: api_key)
+  desc "Sync certificates"
+  lane :sync_certificates do
+    #read-only disables match from overriding the existing certificates.
+    match({readonly: true, type: "appstore"})
   end
+
+  desc "Create ipa"
+    lane :build do
+      #update profiles
+      sync_certificates
+      # Increases the build number by 1
+      increment_build_number
+      # Creates a signed file
+      gym
+    end
+
+  desc "Upload to TestFlight"
+    lane :beta do
+      api_key = app_store_connect_api_key(
+        key_id: ENV["APPLE_KEY_ID"],
+        issuer_id: ENV["APPLE_ISSUER_ID"],
+        key_content: ENV["APPLE_PRIVATE_KEY"],
+        is_key_content_base64: true,
+        in_house: false
+      )
+      build
+      pilot(
+        api_key: api_key
+        )
+    end
 end

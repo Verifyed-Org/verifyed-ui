@@ -15,13 +15,37 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios deploy_to_testflight
+### ios sync_certificates
 
 ```sh
-[bundle exec] fastlane ios deploy_to_testflight
+[bundle exec] fastlane ios sync_certificates
 ```
 
-Build and upload to TestFlight
+Sync certificates
+
+### ios build
+
+```sh
+[bundle exec] fastlane ios build
+```
+
+Create ipa
+
+### ios test_api_key
+
+```sh
+[bundle exec] fastlane ios test_api_key
+```
+
+Test API Key validity
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
+```
+
+Upload to TestFlight
 
 ----
 
